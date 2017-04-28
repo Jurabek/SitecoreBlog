@@ -1,0 +1,54 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using Sc.Blog.Model.Model
+@model IEnumerable<Article>
+
+
+<div class="row">
+    <div class="col-md-8">
+        @foreach (Article blog in Model)
+        {
+            <p class="text-muted">
+                <span class="glyphicon glyphicon-time"></span>
+                @Html.Glass().Editable(blog, i => i.PublishDate)
+                <span class="label label-info"> by Admin</span>
+            </p>
+
+            <h3>
+                @Html.Glass().Editable(blog, i => i.Title)
+            </h3>
+            @Html.Glass().RenderImage(blog, x => x.Image, new { Width = 700, Height = 240 }, isEditable : true)
+            <br />
+            <p>@Html.Glass().Editable(blog, b => b.Body)</p>
+            <a class="btn btn-primary" href="@string.Format("/ArticleDetails?id={0}", blog.Id)">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+            <hr>
+            <br />
+        }
+
+        <!-- Pager -->
+        <ul class="pager">
+            <li class="previous">
+                <a href="#">&larr; Older</a>
+            </li>
+            <li class="next">
+                <a href="#">Newer &rarr;</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Blog Sidebar Widgets Column -->
+    <div class="col-md-4">
+        <!-- Blog Search Well -->
+        <div class="well">
+            <h4>Blog Search</h4>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div>
+            <!-- /.input-group -->
+        </div>
+    </div>
+</div>

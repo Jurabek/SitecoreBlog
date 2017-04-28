@@ -1,0 +1,39 @@
+﻿@using Glass.Mapper.Sc.Web.Mvc
+@using Sc.Blog.Model.Model
+@using Sc.Blog.Model.ViewModels
+    @model Article
+
+    <p class="text-muted">
+        <span class="glyphicon glyphicon-time"></span>
+        @Html.Glass().Editable(Model, i => i.PublishDate)
+        <span class="label label-info"> by Admin</span>
+    </p>
+
+    <h3>
+        @Html.Glass().Editable(Model, i => i.Title)
+    </h3>
+    
+    @Html.Glass().RenderImage(Model, x => x.Image, new { Width = 700, Height = 240 }, isEditable: true)
+  
+     <br />
+
+    <p>@Html.Glass().Editable(Model, b => b.Body)</p>
+
+    @Html.Partial("_CreateComment", new CommentViewModel() { ArticleId = Model.Id })
+
+    <h3>Comments</h3>
+    <hr>
+    <div id="comments">
+        @foreach (var comment in Model.Comments.OrderBy(c => c.PublishDate))
+        {
+            <div class="media">
+                <div class="media-body">
+                    <h4 class="media-heading">
+
+                        <small>@comment.PublishDate</small>
+                    </h4>
+                    @comment.Text
+                </div>
+            </div>
+        }
+    </div>
