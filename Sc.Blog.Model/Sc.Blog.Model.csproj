@@ -48,8 +48,14 @@
       <HintPath>..\Libs\Sitecore.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Article.cs" />
+    <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\Comment.cs" />
     <Compile Include="Model\Folders\ArticlesFolder.cs" />
     <Compile Include="Model\Folders\CommentsFolder.cs" />
@@ -72,6 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Sc.Blog.Common\Sc.Blog.Common.csproj">
+      <Project>{a9bd80dc-eaec-416f-9ab1-554cd49e6dc9}</Project>
+      <Name>Sc.Blog.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

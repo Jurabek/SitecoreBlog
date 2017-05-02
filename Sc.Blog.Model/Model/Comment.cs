@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Sc.Blog.Model.Model
 {
-    public class Comment
+    public class Comment : BaseEntity
     {
+        public Comment()
+        {
+            Id = Guid.NewGuid();
+        }
         public Guid Id { get; set; }
 
         public string Text { get; set; }

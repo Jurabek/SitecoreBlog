@@ -7,7 +7,7 @@ namespace Sc.Blog.Core.Providers
 {
     public class MediaUploadProvider : IMediaUploadProvider
     {
-        public Guid CreateMedaiItem(Stream stream, string fileName, string sitecorePath, string mediaItemName)
+        public MediaItem CreateMedaiItem(Stream stream, string fileName, string sitecorePath)
         {
             Sitecore.Resources.Media.MediaCreatorOptions options = new Sitecore.Resources.Media.MediaCreatorOptions()
             {
@@ -15,13 +15,13 @@ namespace Sc.Blog.Core.Providers
                 IncludeExtensionInItemName = false,
                 OverwriteExisting = false,
                 Versioned = false,
-                Destination = sitecorePath + "/" + mediaItemName,
+                Destination = sitecorePath + "/" + Path.GetFileNameWithoutExtension(fileName),
                 Database = Sitecore.Configuration.Factory.GetDatabase("master")
             };
             
             Sitecore.Resources.Media.MediaCreator creator = new Sitecore.Resources.Media.MediaCreator();
             MediaItem mediaItem = creator.CreateFromStream(stream, fileName, options);
-            return mediaItem.ID.Guid;
+            return mediaItem;
         }
     }
 }

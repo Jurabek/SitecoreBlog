@@ -2,6 +2,7 @@
 using Sc.Blog.Abstractions.Repositories;
 using Sc.Blog.Model.Model;
 using Sc.Blog.Model.Model.Folders;
+using Sitecore.SecurityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,13 @@ namespace Sc.Blog.Core.Repositories
         {
             try
             {
-                _context.Create(_folder, entity);
-                return true;
+                using(new SecurityDisabler())
+                {
+                    _context.Create(_folder, entity);
+                    return true;
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

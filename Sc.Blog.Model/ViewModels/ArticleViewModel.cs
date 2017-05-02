@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sitecore.Data.Items;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Sc.Blog.Model.ViewModels
         public DateTime PublishDate { get; set; }
 
         [Display(Name = "Image")]
-        public Guid ImageId { get; set; }
+        public MediaItem ImageId { get; set; }
 
     }
 }

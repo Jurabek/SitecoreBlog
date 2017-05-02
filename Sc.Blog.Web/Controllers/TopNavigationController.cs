@@ -11,10 +11,6 @@ namespace Sc.Blog.Web.Controllers
     {
         private IRepository<TopNavigation, Guid> _repository;
 
-        public TopNavigationController() : this(new TopNavigationRepository(new SitecoreContext()))
-        {
-        }
-
         public TopNavigationController(IRepository<TopNavigation, Guid> repository)
         {
             _repository = repository;
@@ -22,7 +18,8 @@ namespace Sc.Blog.Web.Controllers
 
         public ActionResult Index()
         {
-            return View(_repository.GetAll());
+            var model = _repository.GetAll();
+            return View(model);
         }
     }
 }

@@ -83,6 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facades\LinkManagerFacade.cs" />
     <Compile Include="Facades\SitecoreDatabaseFacade.cs" />
     <Compile Include="Facades\SitecoreSettingsFacade.cs" />
     <Compile Include="Mappers\AutoMapperConfiguration.cs" />
@@ -90,11 +91,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\AuthenticationProvider.cs" />
     <Compile Include="Providers\MediaUploadProvider.cs" />
+    <Compile Include="Providers\RouteProvider.cs" />
     <Compile Include="Repositories\ArticleRepository.cs" />
     <Compile Include="Repositories\CommentRepository.cs" />
     <Compile Include="Repositories\TopNavigationRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

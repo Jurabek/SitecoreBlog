@@ -62,6 +62,12 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.1.0.0\lib\netstandard1.1\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.1.0.0\lib\netstandard1.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
@@ -71,6 +77,16 @@
     <Reference Include="Sitecore.Mvc">
       <HintPath>..\Libs\Sitecore.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap, Version=4.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.4.5\lib\net45\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap.Microsoft.DependencyInjection, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.Microsoft.DependencyInjection.1.0.0\lib\net451\StructureMap.Microsoft.DependencyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -109,17 +125,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\AutoMapperStart.cs" />
+    <Compile Include="App_Start\AutoMapperBuilder.cs" />
     <Compile Include="App_Start\GlassMapperSc.cs" />
     <Compile Include="App_Start\GlassMapperScCustom.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Constants\TemplateId.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\TopNavigationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IoC\ControllerConvention.cs" />
+    <Compile Include="IoC\CoreAssemblyConvention.cs" />
+    <Compile Include="IoC\StructureMapServiceProviderBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +154,8 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="App_Config\Include\AutoMapperStart.config" />
+    <Content Include="App_Config\Include\AutoMapperBuilder.config" />
+    <Content Include="App_Config\Include\StructureMapServiceProviderStart.config" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
@@ -156,6 +175,7 @@
     <Content Include="Views\Article\_CreateComment.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Account\SignUp.cshtml" />
+    <Content Include="Views\TopNavigation\_LoginHeader.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -169,6 +189,10 @@
     <ProjectReference Include="..\Sc.Blog.Abstractions\Sc.Blog.Abstractions.csproj">
       <Project>{E5C43DA6-6747-4DE8-BD60-3F20641EB256}</Project>
       <Name>Sc.Blog.Abstractions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sc.Blog.Common\Sc.Blog.Common.csproj">
+      <Project>{a9bd80dc-eaec-416f-9ab1-554cd49e6dc9}</Project>
+      <Name>Sc.Blog.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Sc.Blog.Core\Sc.Blog.Core.csproj">
       <Project>{db928528-f6fa-4ad8-8cb3-1a8da12b2976}</Project>

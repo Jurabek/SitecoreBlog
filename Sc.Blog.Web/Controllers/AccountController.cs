@@ -1,26 +1,33 @@
-﻿using Sc.Blog.Abstractions.Providers;
+﻿using Sc.Blog.Abstractions.Facades;
+using Sc.Blog.Abstractions.Providers;
 using Sc.Blog.Core.Providers;
 using Sc.Blog.Model.ViewModels;
-using Sc.Blog.Web.Constants;
 using Sitecore.Data.Items;
 using Sitecore.Links;
 using Sitecore.Mvc.Configuration;
 using System.Web.Mvc;
+using static Sc.Blog.Common.Constants;
 
 namespace Sc.Blog.Web.Controllers
 {
     public class AccountController : Controller
     {
         private IAuthenticationProvider _authenticationProvider;
+        private IRouteProvider _routeProvider;
 
-        public AccountController() : this(new AuthenticationProvider())
-        {
-        }
-
-        public AccountController(IAuthenticationProvider authenticationProvider)
+        public AccountController(IAuthenticationProvider authenticationProvider,
+            IRouteProvider routeProvider)
         {
             _authenticationProvider = authenticationProvider;
+            _routeProvider = routeProvider;
         }
+
+        public ActionResult LogOut()
+        {
+            _authenticationProvider.LogOut();
+            return RedirectToHome();
+        }       
+
         public ActionResult SignIn()
         {
             return View();
@@ -33,9 +40,7 @@ namespace Sc.Blog.Web.Controllers
             {
                 if (_authenticationProvider.SignIn(viewModel.Login, viewModel.Password, viewModel.RememberMe))
                 {
-                    Item item = Sitecore.Context.Database.GetItem(Sitecore.Data.ID.Parse(TemplateId.HomapPageTemplateId));
-                    var pathInfo = LinkManager.GetItemUrl(item, UrlOptions.DefaultOptions);
-                    return RedirectToRoute(MvcSettings.SitecoreRouteName, new { pathInfo = pathInfo.TrimStart(new char[] { '/' }) });
+                    return RedirectToHome();
                 }
                 else
                 {
@@ -54,7 +59,12 @@ namespace Sc.Blog.Web.Controllers
         public ActionResult SignUp(SignUpViewModel viewModel)
         {
             var user = _authenticationProvider.SignUp(viewModel.Login, viewModel.Password, viewModel.Email);
-            return View();
+            return RedirectToHome();
+        }
+
+        private ActionResult RedirectToHome()
+        {
+            return _routeProvider.RedirectToItem(Templates.Home.ID, RedirectToRoute);
         }
     }
 }

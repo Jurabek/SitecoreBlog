@@ -15,10 +15,6 @@ namespace Sc.Blog.Web.Controllers
 {
     public class ArticleController : Controller
     {
-        public ArticleController() : this(new ArticleRepository(new SitecoreContext()), new MediaUploadProvider())
-        {
-        }
-
         private IRepository<Article, Guid> _repository;
         private IMediaUploadProvider _mediaUploadProvider;
 
@@ -51,8 +47,7 @@ namespace Sc.Blog.Web.Controllers
             if (file != null)
             {
                 viewModel.ImageId = _mediaUploadProvider.CreateMedaiItem(file.InputStream,
-                    file.FileName, "/sitecore/media library/images/blog", 
-                    Path.GetFileNameWithoutExtension(file.FileName));
+                    file.FileName, "/sitecore/media library/images/blog");
             }
 
             var model = Mapper.Map<Article>(viewModel);

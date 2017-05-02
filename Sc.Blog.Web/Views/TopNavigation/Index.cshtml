@@ -12,13 +12,14 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                @foreach (var topNavigation in Model)
+                @foreach (var topNavigation in Model.Where(i => !i.IsRightNavagationItem))
                 {
                     <li>
                         @Html.Glass().RenderLink(topNavigation, t => t.Url)
                     </li>
                 }
             </ul>
+            @Html.Partial("_LoginHeader", Model)
         </div>
         <!-- /.navbar-collapse -->
     </div>
