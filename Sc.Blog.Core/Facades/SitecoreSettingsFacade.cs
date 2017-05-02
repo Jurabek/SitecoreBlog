@@ -10,6 +10,6 @@ namespace Sc.Blog.Core.Facades
 {
     public class SitecoreSettingsFacade : ISitecoreSettingsFacade
     {
-        public string SitecoreRouteName { get => MvcSettings.SitecoreRouteName; }
+        public string SitecoreRouteName { get { return MvcSettings.SitecoreRouteName; } }
     }
 }
