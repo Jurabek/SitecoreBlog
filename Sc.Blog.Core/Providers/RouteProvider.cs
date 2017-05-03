@@ -21,9 +21,9 @@ namespace Sc.Blog.Core.Providers
             _linkManagerFacade = linkManagerFacade;
         }
 
-        public ActionResult RedirectToItem(ID itemId, Func<string, object, RedirectToRouteResult> redirectToRoute)
+        public ActionResult RedirectToItem(string itemPath, Func<string, object, RedirectToRouteResult> redirectToRoute)
         {
-            var item = _sitecoreDatabaseFacade.GetItem(itemId);
+            var item = _sitecoreDatabaseFacade.GetItem(itemPath);
             var itemUrl = _linkManagerFacade.GetItemUrl(item);
             return redirectToRoute.Invoke(_sitecoreSettingsFacade.SitecoreRouteName, new { pathInfo = itemUrl.TrimStart(new char[] { '/' }) });
         }

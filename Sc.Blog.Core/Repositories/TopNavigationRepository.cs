@@ -5,6 +5,7 @@ using Sc.Blog.Model.Model.Folders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Sc.Blog.Common.Constants;
 
 namespace Sc.Blog.Core.Repositories
 {
@@ -16,7 +17,7 @@ namespace Sc.Blog.Core.Repositories
         public TopNavigationRepository(ISitecoreContext context)
         {
             _context = context;
-            _folder = _context.GetItem<NavigationItemsFolder>("/sitecore/content/global/navigationitems");
+            _folder = _context.GetItem<NavigationItemsFolder>(Folders.Content.Global.NavigationItems);
         }
 
         public bool Create(TopNavigation entity)

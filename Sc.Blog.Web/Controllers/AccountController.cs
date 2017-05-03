@@ -1,10 +1,5 @@
-﻿using Sc.Blog.Abstractions.Facades;
-using Sc.Blog.Abstractions.Providers;
-using Sc.Blog.Core.Providers;
+﻿using Sc.Blog.Abstractions.Providers;
 using Sc.Blog.Model.ViewModels;
-using Sitecore.Data.Items;
-using Sitecore.Links;
-using Sitecore.Mvc.Configuration;
 using System.Web.Mvc;
 using static Sc.Blog.Common.Constants;
 
@@ -47,7 +42,7 @@ namespace Sc.Blog.Web.Controllers
                     ModelState.AddModelError("", "Invalid login or password!");
                 }
             }
-            return View();
+            return View(viewModel);
         }
 
         public ActionResult SignUp()
@@ -58,13 +53,17 @@ namespace Sc.Blog.Web.Controllers
         [HttpPost]
         public ActionResult SignUp(SignUpViewModel viewModel)
         {
-            var user = _authenticationProvider.SignUp(viewModel.Login, viewModel.Password, viewModel.Email);
-            return RedirectToHome();
+            if (ModelState.IsValid)
+            {
+                var user = _authenticationProvider.SignUp(viewModel.Login, viewModel.Password, viewModel.Email);
+                return RedirectToHome();
+            }
+            return View(viewModel);
         }
 
         private ActionResult RedirectToHome()
         {
-            return _routeProvider.RedirectToItem(Templates.Home.ID, RedirectToRoute);
+            return _routeProvider.RedirectToItem(Folders.Content.Home, RedirectToRoute);
         }
     }
 }

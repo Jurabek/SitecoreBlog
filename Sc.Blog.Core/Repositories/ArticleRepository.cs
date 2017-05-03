@@ -6,6 +6,7 @@ using Sitecore.SecurityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using static Sc.Blog.Common.Constants;
 
 namespace Sc.Blog.Core.Repositories
 {
@@ -17,7 +18,7 @@ namespace Sc.Blog.Core.Repositories
         public ArticleRepository(ISitecoreContext context)
         {
             _context = context;
-            _folder = _context.GetItem<ArticlesFolder>("/sitecore/content/global/articles");
+            _folder = _context.GetItem<ArticlesFolder>(Folders.Content.Global.Articles);
         }
 
         public bool Create(Article entity)
@@ -30,7 +31,7 @@ namespace Sc.Blog.Core.Repositories
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

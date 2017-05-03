@@ -8,13 +8,13 @@ namespace Sc.Blog.Model.Model
 {
     public class TopNavigation : BaseEntity
     {
-        public virtual Guid Id { get; set; }
+        public Guid Id { get; set; }
 
-        public virtual string Title { get; set; }
+        public string Title { get; set; }
 
         [SitecoreField(UrlOptions = SitecoreInfoUrlOptions.AlwaysIncludeServerUrl | SitecoreInfoUrlOptions.LanguageEmbeddingNever)]
-        public virtual Link Url { get; set; }
+        public Link Url { get; set; }
                 
-        public virtual bool IsRightNavagationItem { get; set; }
+        public bool IsRightNavagationItem { get; set; }
     }
 }

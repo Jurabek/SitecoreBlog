@@ -105,6 +105,10 @@
       <Project>{e5c43da6-6747-4de8-bd60-3f20641eb256}</Project>
       <Name>Sc.Blog.Abstractions</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sc.Blog.Common\Sc.Blog.Common.csproj">
+      <Project>{A9BD80DC-EAEC-416F-9AB1-554CD49E6DC9}</Project>
+      <Name>Sc.Blog.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sc.Blog.Model\Sc.Blog.Model.csproj">
       <Project>{EEBE86BE-9194-4836-B2C6-734C1853EF2C}</Project>
       <Name>Sc.Blog.Model</Name>

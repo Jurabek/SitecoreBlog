@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
-using Glass.Mapper.Sc;
 using Sc.Blog.Abstractions.Providers;
 using Sc.Blog.Abstractions.Repositories;
-using Sc.Blog.Core.Providers;
-using Sc.Blog.Core.Repositories;
 using Sc.Blog.Model.Model;
 using Sc.Blog.Model.ViewModels;
 using System;
-using System.IO;
 using System.Web;
 using System.Web.Mvc;
+using static Sc.Blog.Common.Constants;
 
 namespace Sc.Blog.Web.Controllers
 {
@@ -17,11 +14,15 @@ namespace Sc.Blog.Web.Controllers
     {
         private IRepository<Article, Guid> _repository;
         private IMediaUploadProvider _mediaUploadProvider;
+        private IRouteProvider _routeProvider;
 
-        public ArticleController(IRepository<Article, Guid> repository, IMediaUploadProvider mediaUploaderProvider)
+        public ArticleController(IRepository<Article, Guid> repository, 
+            IMediaUploadProvider mediaUploaderProvider,
+            IRouteProvider routerProvider)
         {
             _repository = repository;
             _mediaUploadProvider = mediaUploaderProvider;
+            _routeProvider = routerProvider;
         }
 
         public ActionResult Index()
@@ -46,13 +47,18 @@ namespace Sc.Blog.Web.Controllers
         {
             if (file != null)
             {
-                viewModel.ImageId = _mediaUploadProvider.CreateMedaiItem(file.InputStream,
-                    file.FileName, "/sitecore/media library/images/blog");
+                viewModel.Image = _mediaUploadProvider.CreateMedaiItem(file.InputStream,
+                    file.FileName, Folders.MediaLibrary.Images.Blog);
             }
 
             var model = Mapper.Map<Article>(viewModel);
             var result = _repository.Create(model);
-            return View();
+            if(!result)
+            {
+                ModelState.AddModelError("", "Could not create article");
+                return View();
+            }
+            return _routeProvider.RedirectToItem(Folders.Content.Home, RedirectToRoute);
         }
 
         [HttpPost]

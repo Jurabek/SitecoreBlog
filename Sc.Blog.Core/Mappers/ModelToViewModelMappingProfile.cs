@@ -9,13 +9,12 @@ namespace Sc.Blog.Core.Mappers
     {
         public ModelToViewModelMappingProfile()
         {
-            CreateMap<ArticleViewModel, Article>();
-
-                //.ForMember(a => a.Image, 
-                //                x => x.MapFrom(i => new Image
-                //                {
-                //                    MediaId = i.ImageId
-                //                }));
+            CreateMap<ArticleViewModel, Article>()
+                .ForMember(a => a.Image,
+                                x => x.MapFrom(i => new Image
+                                {
+                                    MediaId = i.Image.ID.Guid
+                                }));
         }
     }
 }

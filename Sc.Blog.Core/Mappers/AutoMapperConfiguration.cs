@@ -2,7 +2,6 @@
 
 namespace Sc.Blog.Core.Mappers
 {
-
     public class AutoMapperConfiguration
     {
         public static void Configure()

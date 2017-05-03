@@ -18,7 +18,7 @@ namespace Sc.Blog.Model.ViewModels
         public DateTime PublishDate { get; set; }
 
         [Display(Name = "Image")]
-        public MediaItem ImageId { get; set; }
+        public MediaItem Image { get; set; }
 
     }
 }

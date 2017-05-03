@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Sc.Blog.Common.Constants;
 
 namespace Sc.Blog.Core.Repositories
 {
@@ -18,7 +19,7 @@ namespace Sc.Blog.Core.Repositories
         public CommentRepository(ISitecoreContext context)
         {
             _context = context;
-            _folder = _context.GetItem<CommentsFolder>("sitecore/global/comments/");
+            _folder = _context.GetItem<CommentsFolder>(Folders.Content.Global.Comments);
         }
 
         public bool Create(Comment entity)

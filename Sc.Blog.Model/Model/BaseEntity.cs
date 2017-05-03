@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Sc.Blog.Model.Model
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
         [SitecoreInfo(Glass.Mapper.Sc.Configuration.SitecoreInfoType.Name)]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
     }
 }
