@@ -1,4 +1,5 @@
-﻿using Sc.Blog.Abstractions.Providers;
+﻿using Sc.Blog.Abstractions.Facades;
+using Sc.Blog.Abstractions.Providers;
 using Sc.Blog.Model.ViewModels;
 using System.Web.Mvc;
 using static Sc.Blog.Common.Constants;
@@ -7,10 +8,10 @@ namespace Sc.Blog.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private IAuthenticationProvider _authenticationProvider;
+        private IAuthenticationFacade _authenticationProvider;
         private IRouteProvider _routeProvider;
 
-        public AccountController(IAuthenticationProvider authenticationProvider,
+        public AccountController(IAuthenticationFacade authenticationProvider,
             IRouteProvider routeProvider)
         {
             _authenticationProvider = authenticationProvider;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sc.Blog.Abstractions.Repositories
 {
@@ -6,8 +7,9 @@ namespace Sc.Blog.Abstractions.Repositories
     {
         IEnumerable<T> GetAll();
         T Get(TKey id);
-        void Update(T entity);
+        bool Update(T entity);
         bool Delete(TKey id);
         bool Create(T entity);
+        IList<Exception> RepositoryErrors { get; }
     }
 }

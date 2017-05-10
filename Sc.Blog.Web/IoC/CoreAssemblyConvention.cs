@@ -10,6 +10,7 @@ using StructureMap.Pipeline;
 
 namespace Sc.Blog.Web.IoC
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class CoreAssemblyConvention : IRegistrationConvention
     {        
         public void ScanTypes(TypeSet types, Registry registry)

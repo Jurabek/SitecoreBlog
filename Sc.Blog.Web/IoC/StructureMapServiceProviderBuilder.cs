@@ -4,10 +4,12 @@ using Sitecore.Configuration;
 using Sitecore.DependencyInjection;
 using StructureMap;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace Sc.Blog.Web.IoC
 {
+    [ExcludeFromCodeCoverage]
     public class StructureMapServiceProviderBuilder : BaseServiceProviderBuilder
     {
         protected override IServiceProvider BuildServiceProvider(IServiceCollection serviceCollection)

@@ -1,10 +1,11 @@
 ﻿@model Sc.Blog.Model.ViewModels.CommentViewModel
 <div class="well">
     <h4>Leave a Comment:</h4>
-    @using (Html.BeginForm())
+    @using(Html.BeginRouteForm(Sitecore.Mvc.Configuration.MvcSettings.SitecoreRouteName, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
-        @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control", style = "min-width:500px; min-height:200px" } })
-        <button type="button" id="saveCommentButton" class="btn btn-primary">
+        @Html.HiddenFor(model => model.ArticleId)
+        @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control", style = "min-width:500px; min-height:150px" } })
+        <button type="submit" id="saveCommentButton" class="btn btn-primary" style="margin-top:20px">
             <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate" style="display:none;" id="loading"></span>
             Submit
         </button>

@@ -5,6 +5,7 @@ using System;
 
 namespace Sc.Blog.Core.Facades
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SitecoreDatabaseFacade : ISitecoreDatabaseFacade
     {
         public Item GetItem(ID id)

@@ -10,6 +10,8 @@ using System.Web.SessionState;
 
 namespace Sc.Blog.Web
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+
     public class Global : Sitecore.Web.Application
     {
 

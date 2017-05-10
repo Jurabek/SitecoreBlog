@@ -3,6 +3,7 @@ using Glass.Mapper.Sc.Configuration.Attributes;
 using Glass.Mapper.Sc.Fields;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using static Sc.Blog.Common.Constants;
 
 namespace Sc.Blog.Model.Model
@@ -15,6 +16,7 @@ namespace Sc.Blog.Model.Model
         {
             Id = Guid.NewGuid();
             Name = DateTime.Now.ToString("yy-MM-ddThh-mm-ss");
+            Comments = new List<Comment>();
         }
 
         public Guid Id { get; set; }
@@ -28,6 +30,6 @@ namespace Sc.Blog.Model.Model
 
         public DateTime PublishDate { get; set; }
 
-        public IEnumerable<Comment> Comments { get; set; }
+        public IList<Comment> Comments { get; set; }
     }
 }

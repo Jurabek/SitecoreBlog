@@ -19,20 +19,24 @@ namespace Sc.Blog.Core.Repositories
         {
             _context = context;
             _folder = _context.GetItem<ArticlesFolder>(Folders.Content.Global.Articles);
+            RepositoryErrors = new List<Exception>();
         }
+
+        public IList<Exception> RepositoryErrors { get; }
 
         public bool Create(Article entity)
         {
             try
             {
-                using(new SecurityDisabler())
+                using (new SecurityDisabler())
                 {
                     _context.Create(_folder, entity);
                     return true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                RepositoryErrors.Add(ex);
                 return false;
             }
         }
@@ -45,8 +49,9 @@ namespace Sc.Blog.Core.Repositories
                 _context.Delete(itemForDelete);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                RepositoryErrors.Add(ex);
                 return false;
             }
         }
@@ -61,9 +66,19 @@ namespace Sc.Blog.Core.Repositories
             return _folder.Children;
         }
 
-        public void Update(Article entity)
+        public bool Update(Article entity)
         {
-            _context.Save(entity);
+            try
+            {
+                _context.Save(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                RepositoryErrors.Add(ex);
+                return false;
+            }
+
         }
     }
 }

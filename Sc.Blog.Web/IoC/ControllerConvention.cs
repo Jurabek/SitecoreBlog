@@ -8,6 +8,7 @@ using Sitecore.Mvc.Extensions;
 
 namespace Sc.Blog.Web.IoC
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class ControllerConvention : IRegistrationConvention
     {
         public void ScanTypes(TypeSet types, Registry registry)

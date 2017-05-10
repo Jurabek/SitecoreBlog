@@ -15,12 +15,15 @@ namespace Sc.Blog.Model.Model
         public Comment()
         {
             Id = Guid.NewGuid();
+            Name = DateTime.Now.ToString("yy-MM-ddThh-mm-ss");
+            PublishDate = DateTime.Now;
         }
-        public Guid Id { get; set; }
+
+        public virtual Guid Id { get; set; }
 
         [SitecoreField(Setting = SitecoreFieldSettings.RichTextRaw)]
-        public string Text { get; set; }
+        public virtual string Text { get; set; }
 
-        public DateTime PublishDate { get; set; }
+        public virtual DateTime PublishDate { get; set; }
     }
 }

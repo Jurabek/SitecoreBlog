@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Sc.Blog.Core.Facades
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class SitecoreSettingsFacade : ISitecoreSettingsFacade
     {
         public string SitecoreRouteName { get { return MvcSettings.SitecoreRouteName; } }

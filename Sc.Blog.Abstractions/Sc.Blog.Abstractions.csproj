@@ -72,14 +72,17 @@
     <Compile Include="Facades\ILinkManagerFacade.cs" />
     <Compile Include="Facades\ISitecoreDatabaseFacade.cs" />
     <Compile Include="Facades\ISitecoreSettingsFacade.cs" />
+    <Compile Include="ModelBuilders\IArticleModelBuilder.cs" />
+    <Compile Include="ModelBuilders\IModelBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\IAuthenticationProvider.cs" />
-    <Compile Include="Providers\IMediaUploadProvider.cs" />
+    <Compile Include="Facades\IAuthenticationFacade.cs" />
+    <Compile Include="Facades\IMediaUploadFacade.cs" />
     <Compile Include="Providers\IRouteProvider.cs" />
     <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

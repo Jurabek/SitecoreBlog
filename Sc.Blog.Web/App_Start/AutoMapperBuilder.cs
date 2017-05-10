@@ -9,6 +9,7 @@ using System.Web.Services.Description;
 
 namespace Sc.Blog.Web.App_Start
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public class AutoMapperBuilder
     {
         public void Process(PipelineArgs args)

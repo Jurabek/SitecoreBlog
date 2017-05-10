@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using NUnit.Framework;
+using Sc.Blog.Abstractions.Facades;
 using Sc.Blog.Abstractions.Providers;
 using Sc.Blog.Model.ViewModels;
 using Sc.Blog.Web.Controllers;
@@ -16,14 +17,14 @@ namespace Sc.Blog.Test.Controllers
     [TestFixture]
     public class AccountControllerTest
     {
-        private Mock<IAuthenticationProvider> _authenticationProvider;
+        private Mock<IAuthenticationFacade> _authenticationProvider;
         private Mock<IRouteProvider> _routerProvider;
         private AccountController _controller; 
 
         [OneTimeSetUp]
         public void Init()
         {
-            _authenticationProvider = new Mock<IAuthenticationProvider>();
+            _authenticationProvider = new Mock<IAuthenticationFacade>();
             _routerProvider = new Mock<IRouteProvider>();
             _controller = new AccountController(_authenticationProvider.Object, _routerProvider.Object);
             
@@ -129,11 +130,80 @@ namespace Sc.Blog.Test.Controllers
         public void SignUp_should_return_view()
         {
             //when
+            ClearModelState();
             var result = _controller.SignUp() as ViewResult;
 
             //then
             result.Should().NotBeNull();
         }
+
+        [Test]
+        public void SignUp_with_valid_data_should_sign_up()
+        {
+            //given
+            ClearModelState();
+            _authenticationProvider.Setup(x => x.SignUp(It.IsAny<string>(),
+                It.IsAny<string>(),
+                It.IsAny<string>()));
+
+
+            //when
+            var result = _controller.SignUp(new SignUpViewModel()) as RedirectToRouteResult;
+
+            //then
+            result.RouteName.Should().Be("Home");
+        }
+
+        [Test]
+        public void SignUp_with_wrong_data_model_errors()
+        {
+            //given
+            string errorMessage = "Password not matched!";
+            ClearModelState();
+            _controller.ModelState.AddModelError("", errorMessage);
+            
+            //when
+            var model = new SignUpViewModel();
+            var result = _controller.SignUp(model) as ViewResult;
+
+            //then
+             result.ViewData.ModelState
+                .Values
+                .First()
+                .Errors
+                .First()
+                .ErrorMessage
+                .Should()
+                .Be(errorMessage);
+
+            result.ViewData.Model.Should().Be(model);
+        }
+
+        [Test]
+        public void SignUp_with_wrong_data_should_return_model_error()
+        {
+            //given
+            ClearModelState();
+            string errorMessage = "Password not matched!";
+            _controller.ModelState.AddModelError("error", errorMessage);
+
+            //when
+            var model = new SignInViewModel();
+            var result = _controller.SignIn(model) as ViewResult;
+
+            //then
+            result.ViewData.ModelState
+                .Values
+                .First()
+                .Errors
+                .First()
+                .ErrorMessage
+                .Should()
+                .Be(errorMessage);
+
+            result.ViewData.Model.Should().Be(model);
+        }
+
         protected void ClearModelState()
         {
             _controller.ModelState.Clear();

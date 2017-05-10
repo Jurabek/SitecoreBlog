@@ -29,10 +29,9 @@
             <div class="media">
                 <div class="media-body">
                     <h4 class="media-heading">
-
                         <small>@comment.PublishDate</small>
                     </h4>
-                    @comment.Text
+                    @Html.Raw(comment.Text)
                 </div>
             </div>
         }

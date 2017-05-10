@@ -15,6 +15,8 @@ namespace Sc.Blog.Core.Mappers
                                 {
                                     MediaId = i.Image.ID.Guid
                                 }));
+
+            CreateMap<CommentViewModel, Comment>();
         }
     }
 }

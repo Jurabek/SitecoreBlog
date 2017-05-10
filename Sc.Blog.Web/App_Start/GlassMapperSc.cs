@@ -17,7 +17,8 @@ using Sitecore.Pipelines;
 
 namespace Sc.Blog.Web.App_Start
 {
-	public class  GlassMapperSc
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    public class  GlassMapperSc
 	{
 		public void Process(PipelineArgs args){
 			GlassMapperSc.Start();

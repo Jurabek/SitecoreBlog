@@ -7,6 +7,7 @@ using IDependencyResolver = Glass.Mapper.Sc.IoC.IDependencyResolver;
 
 namespace Sc.Blog.Web.App_Start
 {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     public static  class GlassMapperScCustom
     {
 		public static IDependencyResolver CreateResolver(){

@@ -114,13 +114,70 @@ namespace Sc.Blog.Test.Repositories
         public void Update_should_update_item()
         {
             //given
-            _context.Setup(x => x.Save(It.IsAny<Article>(), false, false));
+            _context.Setup(x => x.Save(It.IsAny<Article>(), true, false));
 
             //when
             _repository = new ArticleRepository(_context.Object);
 
             //then
             _repository.Update(new Article());
+        }
+
+        [Test]
+        public void Update_with_wrong_data_should_create_error()
+        {
+            string errorMessage = "Could not update article";
+            _context.Reset();
+
+            //given
+            _context.Setup(x => x.Save(It.IsAny<Article>(), true, false))
+                .Throws(new Exception(errorMessage));
+
+            //when
+            _repository = new ArticleRepository(_context.Object);
+            var result = _repository.Update(new Article());
+
+            //then
+            result.Should().BeFalse();
+
+            _repository.RepositoryErrors
+                .LastOrDefault()
+                .Message
+                .Should()
+                .Be(errorMessage);
+        }
+
+
+        [Test]
+        public void Create_with_article_should_create_item()
+        {
+            //given
+            _context.Setup(x => x.Create(It.IsAny<ArticlesFolder>(), It.IsAny<Article>(), true, false));
+
+            //when
+            _repository = new ArticleRepository(_context.Object);
+            var result = _repository.Create(new Article());
+
+            //then
+            result.Should().BeTrue();
+        }
+
+        [Test]
+        public void Create_with_wrong_data_should_create_exception()
+        {
+            string errorMessage = "Could not create article!";
+            //given
+            _context.Setup(x => x.Create(It.IsAny<ArticlesFolder>(), It.IsAny<Article>(), true, false))
+                .Throws(new Exception(errorMessage));
+
+            //when
+            _repository = new ArticleRepository(_context.Object);
+            var result = _repository.Create(new Article());
+
+            //then
+            result.Should().BeFalse();
+
+            _repository.RepositoryErrors.LastOrDefault().Message.Should().Be(errorMessage);
         }
     }
 }

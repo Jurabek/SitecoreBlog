@@ -2,11 +2,10 @@
 using Sc.Blog.Abstractions.Repositories;
 using Sc.Blog.Model.Model;
 using Sc.Blog.Model.Model.Folders;
+using Sitecore.SecurityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Sc.Blog.Common.Constants;
 
 namespace Sc.Blog.Core.Repositories
@@ -20,39 +19,68 @@ namespace Sc.Blog.Core.Repositories
         {
             _context = context;
             _folder = _context.GetItem<CommentsFolder>(Folders.Content.Global.Comments);
+            RepositoryErrors = new List<Exception>();
         }
+
+        public IList<Exception> RepositoryErrors { get; }
 
         public bool Create(Comment entity)
         {
             try
             {
-                _context.Create(_folder, entity);
-                return true;
+                using(new SecurityDisabler())
+                {
+                    _context.Create(_folder, entity);
+                    return true;
+                }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                RepositoryErrors.Add(ex);
                 return false;
             }
         }
 
         public bool Delete(Guid id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (new SecurityDisabler())
+                {
+                    var itemForDelete = _folder.Children.SingleOrDefault(ch => ch.Id == id);
+                    _context.Delete(itemForDelete);
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                RepositoryErrors.Add(ex);
+                return false;
+            }
         }
 
         public Comment Get(Guid id)
         {
-            throw new NotImplementedException();
+            return _folder.Children.SingleOrDefault(c => c.Id == id);
         }
 
         public IEnumerable<Comment> GetAll()
         {
-            throw new NotImplementedException();
+            return _folder.Children;
         }
 
-        public void Update(Comment entity)
+        public bool Update(Comment entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Save(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                RepositoryErrors.Add(ex);
+                return false;
+            }
         }
     }
 }

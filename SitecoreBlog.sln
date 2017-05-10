@@ -5,8 +5,12 @@ VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{7F493876-8316-4A2A-94B7-43479C3709E8}"
 	ProjectSection(SolutionItems) = preProject
+		Libs\Lucene.Net.dll = Libs\Lucene.Net.dll
+		Libs\Sitecore.Analytics.dll = Libs\Sitecore.Analytics.dll
 		Libs\Sitecore.Kernel.dll = Libs\Sitecore.Kernel.dll
+		Libs\Sitecore.Logging.dll = Libs\Sitecore.Logging.dll
 		Libs\Sitecore.Mvc.dll = Libs\Sitecore.Mvc.dll
+		Libs\Sitecore.Nexus.dll = Libs\Sitecore.Nexus.dll
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sc.Blog.Model", "Sc.Blog.Model\Sc.Blog.Model.csproj", "{EEBE86BE-9194-4836-B2C6-734C1853EF2C}"

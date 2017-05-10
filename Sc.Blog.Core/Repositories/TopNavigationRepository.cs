@@ -18,7 +18,10 @@ namespace Sc.Blog.Core.Repositories
         {
             _context = context;
             _folder = _context.GetItem<NavigationItemsFolder>(Folders.Content.Global.NavigationItems);
+            RepositoryErrors = new List<Exception>();
         }
+
+        public IList<Exception> RepositoryErrors { get; }
 
         public bool Create(TopNavigation entity)
         {
@@ -27,8 +30,9 @@ namespace Sc.Blog.Core.Repositories
                 _context.Create(_folder, entity);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                RepositoryErrors.Add(ex);
                 return false;
             }
         }
@@ -50,9 +54,18 @@ namespace Sc.Blog.Core.Repositories
             return _folder.Children;
         }
 
-        public void Update(TopNavigation entity)
+        public bool Update(TopNavigation entity)
         {
-            _context.Save(entity);
+            try
+            {
+                _context.Save(entity);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                RepositoryErrors.Add(ex);
+                return false;
+            }
         }
     }
 }

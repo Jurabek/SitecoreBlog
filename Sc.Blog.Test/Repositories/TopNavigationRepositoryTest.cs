@@ -112,5 +112,59 @@ namespace Sc.Blog.Test.Repositories
             //when
             repository.Update(new TopNavigation());
         }
+
+        [Test]
+        public void Update_with_wrong_data_should_create_errors()
+        {
+            //given
+            _context.Setup(x => x.Save(It.IsAny<TopNavigation>(), true, false))
+                .Throws(new Exception("Could not update item"));
+            var repository = new TopNavigationRepository(_context.Object);
+
+            //when
+            var result = repository.Update(null);
+
+            //then
+            result.Should().BeFalse();
+
+            repository.RepositoryErrors
+                .LastOrDefault()
+                .Message
+                .Should()
+                .Be("Could not update item");
+        }
+
+        [Test]
+        public void Create_with_valid_data_shoul_create_item()
+        {
+            //given
+            _context.Setup(x => x.Create(It.IsAny<NavigationItemsFolder>(), It.IsAny<TopNavigation>(), true, false));
+            var repository = new TopNavigationRepository(_context.Object);
+
+            //when
+            var result = repository.Create(new TopNavigation());
+
+            //then
+            result.Should().BeTrue();
+        }
+
+        [Test]
+        public void Create_with_wrong_data_shoul_create_error()
+        {
+            //given
+            _context.Setup(x => x.Create(It.IsAny<NavigationItemsFolder>(), It.IsAny<TopNavigation>(), true, false))
+                .Throws(new Exception("Could not create top navigation"));
+            var repository = new TopNavigationRepository(_context.Object);
+
+            //when
+            var result = repository.Create(new TopNavigation());
+
+            //then
+            result.Should().BeFalse();
+
+            repository.RepositoryErrors.LastOrDefault().Message
+                .Should().Be("Could not create top navigation");
+        }
+
     }
 }
